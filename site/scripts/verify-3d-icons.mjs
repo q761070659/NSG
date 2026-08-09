@@ -52,7 +52,8 @@ const files = fs.readdirSync(imgDir).filter((name) => name.startsWith('model__')
 // 蟹农 20 个：捕蟹笼、椰子树等直接模型，以及 15 个 template 展开的桶装海鲜/珍珠块/板条箱。
 // 原版方块从 87 增到 88：末地石炉灶配方引入了 minecraft:end_stone。
 // 山茶花 2 个：茶壶家具模型，以及茶壶配方引入的原版 minecraft:terracotta。
-check(files.length === 198, `烘焙图数量应为 198，实际 ${files.length}`);
+// 晒盐池新增 1 个本体模型图标。
+check(files.length === 199, `烘焙图数量应为 199，实际 ${files.length}`);
 
 for (const name of files) {
   const png = PNG.sync.read(fs.readFileSync(path.join(imgDir, name)));
@@ -176,12 +177,13 @@ for (const id of XIENONG_ADVANCEMENT_ITEMS) {
 console.log(`✓ ${XIENONG_ADVANCEMENT_ITEMS.length} 个蟹农成就触发物均有图标`);
 
 // ---- 8. 配方数据与设备合成配方回归 ----
-// 462 = 139 农夫乐事工作台/熔炉类 + 230 工作站 + 22 末地乐事 + 70 蟹农 + 1 山茶花（茶壶）。
+// 463 = 139 农夫乐事工作台/熔炉类 + 1 晒盐池 + 230 工作站 + 22 末地乐事 + 70 蟹农 + 1 山茶花（茶壶）。
 const recipes = JSON.parse(fs.readFileSync(path.join(siteDir, 'src', 'data', 'recipes.json'), 'utf8')).recipes;
-check(recipes.length === 462, `配方总数应为 462，实际 ${recipes.length}`);
+check(recipes.length === 463, `配方总数应为 463，实际 ${recipes.length}`);
 
-// 这四台设备的合成配方曾因 YAML 未递归收集而缺失，各页面都直接引用它们。
+// 这些设备的合成配方分散在业务 YAML 中，各页面都直接引用它们。
 const STATION_RECIPES = [
+  'default:salt_basin',
   'xienong:crab_trap',
   'endersdelight:endstone_stove',
   'endersdelight:cooking_pot_gold',

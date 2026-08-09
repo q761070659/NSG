@@ -1,7 +1,7 @@
 {
   "generatedFrom": "ce配置/nong/configuration",
   "counts": {
-    "shaped": 66,
+    "shaped": 67,
     "shapeless": 90,
     "smelting": 25,
     "smoking": 24,
@@ -317,7 +317,6 @@
       "hidden": true,
       "children": [],
       "items": [
-        "default:trellis",
         "default:bamboo_trellis",
         "default:stripped_bamboo_trellis",
         "default:watering_can",
@@ -339,7 +338,8 @@
       "items": [
         "default:cask",
         "default:stomping_basin",
-        "default:tree_tapper"
+        "default:tree_tapper",
+        "default:salt_basin"
       ]
     },
     {
@@ -509,6 +509,7 @@
         "default:straw_rug",
         "default:counter",
         "default:basin",
+        "default:salt_basin",
         "default:jar",
         "default:cotton_bale",
         "default:spool",
@@ -923,7 +924,6 @@
     "default:ground_cinnamon_bag": "袋装肉桂粉",
     "default:dog_food": "狗粮",
     "default:horse_feed": "马食",
-    "default:trellis": "藤架",
     "default:bamboo_trellis": "竹制藤架",
     "default:stripped_bamboo_trellis": "去皮竹制藤架",
     "default:watering_can": "浇水壶",
@@ -937,6 +937,7 @@
     "default:cask": "小木桶",
     "default:stomping_basin": "木盆",
     "default:tree_tapper": "树液采集器",
+    "default:salt_basin": "晒盐池",
     "default:wild_red_grapes": "野生红葡萄",
     "default:wild_green_grapes": "野生绿葡萄",
     "default:red_grapes": "红葡萄",
@@ -1398,10 +1399,12 @@
     "default:cooking_sap_cauldron_liquid": "烹煮树液液面",
     "default:syrup_cauldron_liquid": "糖浆液面",
     "default:apple_cider_basin_liquid": "苹果酒液面",
+    "default:trellis": "藤架",
     "default:full_tatami_mat": "完整榻榻米垫",
     "default:cabbages": "卷心菜",
     "default:tomatoes": "番茄藤蔓",
     "default:onions": "洋葱",
+    "default:peanuts": "花生",
     "default:blueberry_bush": "蓝莓灌木",
     "default:raspberry_bush": "覆盆子灌木",
     "default:corn_bottom": "玉米秆",
@@ -5840,6 +5843,37 @@
         ]
       },
       "resultCategory": "default:nong_storage"
+    },
+    {
+      "id": "default:salt_basin",
+      "type": "shaped",
+      "typeLabel": "有序合成",
+      "category": "misc",
+      "result": {
+        "id": "default:salt_basin",
+        "count": 1
+      },
+      "resultName": "晒盐池",
+      "pattern": [
+        "   ",
+        "SBS",
+        "SSS"
+      ],
+      "key": {
+        "B": [
+          {
+            "id": "minecraft:bucket",
+            "name": "桶"
+          }
+        ],
+        "S": [
+          {
+            "id": "#minecraft:wooden_slabs",
+            "name": "任意木台阶"
+          }
+        ]
+      },
+      "resultCategory": "default:nuanfeng_workstations"
     },
     {
       "id": "endersdelight:endstone_stove",

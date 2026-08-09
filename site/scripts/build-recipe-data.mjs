@@ -1,7 +1,7 @@
 // 从 CraftEngine 配置生成 wiki 使用的合成表数据。
 // 配置源：ce配置/nong（本体）、蟹农和末地乐事/enders、蟹农和末地乐事/xienong、山茶花/camellia_ce_pack。
-// 输入：configuration/recipes.yml（工作台/熔炉配方）、configuration/langs/*.yml（中文名）、
-//       configuration/categories.yml（分类归属）
+// 输入：configuration/recipes.yml（主工作台/熔炉配方）与少数设备配置中的 recipes 段、
+//       configuration/langs/*.yml（中文名）、configuration/categories.yml（分类归属）
 // 输出：src/data/recipes.json
 import fs from 'node:fs';
 import path from 'node:path';
@@ -16,6 +16,9 @@ const ceDir = path.resolve(siteDir, '..', 'ce配置', 'nong', 'configuration');
 const endersDir = path.resolve(siteDir, '..', '蟹农和末地乐事', 'enders', 'configuration');
 const xienongDir = path.resolve(siteDir, '..', '蟹农和末地乐事', 'xienong', 'configuration');
 const camelliaDir = path.resolve(siteDir, '..', '山茶花', 'camellia_ce_pack', 'configuration');
+
+/** 本体只有这些额外设备配方需要纳入 Wiki；其余方块配置配方是内部/装饰配方，保持原有统计口径。 */
+const NONG_RECIPE_FILES = ['recipes.yml', path.join('blocks', 'salt_basin.yml')];
 
 /** 蟹农的配方分散在多个文件里（末地乐事只有单个 recipes.yml）。 */
 const XIENONG_RECIPE_FILES = ['seafood_recipes.yml', 'seafood_cooking.yml', 'barrels.yml', 'blocks.yml', 'coconut_tree.yml'];
@@ -455,9 +458,6 @@ function buildWorkstationRecipes(displayName) {
 function main() {
   const names = loadNames();
   const {categories, itemCategory} = loadCategories();
-  const doc = loadYaml(path.join(ceDir, 'recipes.yml'));
-  const rawRecipes = doc.recipes ?? {};
-
   const displayName = (id) => {
     if (!id) return null;
     if (names[id]?.zh) return names[id].zh;
@@ -467,7 +467,14 @@ function main() {
   };
 
   const recipes = [];
-  // nong 本体 + 末地乐事 + 蟹农，三套 CraftEngine 配方结构相同。
+  // 本体主配方 + 晒盐池自身配置里的 1 条工作台配方。
+  const nongRaw = {};
+  for (const relative of NONG_RECIPE_FILES) {
+    const full = path.join(ceDir, relative);
+    if (!fs.existsSync(full)) continue;
+    Object.assign(nongRaw, loadYaml(full).recipes ?? {});
+  }
+
   // 蟹农把配方散在多个业务文件里，逐个合并。
   const xienongRaw = {};
   for (const file of XIENONG_RECIPE_FILES) {
@@ -487,7 +494,7 @@ function main() {
     Object.assign(camelliaRaw, loadYaml(full).recipes ?? {});
   }
   const sources = [
-    {source: null, raw: rawRecipes},
+    {source: null, raw: nongRaw},
     {source: 'endersdelight', raw: endersRaw},
     {source: 'xienong', raw: xienongRaw},
     {source: 'camellia', raw: camelliaRaw},

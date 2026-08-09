@@ -836,6 +836,9 @@
     "default:salt_bag": [
       "/img/items/model__default_salt_bag.png"
     ],
+    "default:salt_basin": [
+      "/img/items/model__default_salt_basin.png"
+    ],
     "default:salt_block": [
       "/img/items/model__default_salt_block.png"
     ],
@@ -1039,9 +1042,6 @@
     ],
     "default:tree_tapper": [
       "/img/items/model__default_tree_tapper.png"
-    ],
-    "default:trellis": [
-      "/img/items/minecraft__item__custom__trellis.png"
     ],
     "default:trough": [
       "/img/items/model__default_trough.png"
