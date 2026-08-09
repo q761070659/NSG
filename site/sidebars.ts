@@ -3,6 +3,7 @@ import type {SidebarsConfig} from '@docusaurus/plugin-content-docs';
 const sidebars: SidebarsConfig = {
   wikiSidebar: [
     'intro',
+    'updates',
     {
       type: 'category',
       label: '合成表',
